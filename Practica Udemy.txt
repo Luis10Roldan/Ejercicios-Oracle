@@ -1,0 +1,761 @@
+SELECT 'HOLA MUNDO' FROM DUAL;
+
+
+SELECT SYSDATE FROM DUAL;
+SELECT USER FROM DUAL;
+
+SELECT 'ESTA ES UNA CADENA' || ' ' || 'OTRA CADENA DE PRUEBA'
+FROM DUAL;
+
+
+SELECT  ('USUARIO: ' || USER || ', EL DIA DE HOY ES: ' || SYSDATE) AS "ENCABEZADO"
+FROM DUAL;
+
+SELECT 'I''M ' || USER FROM DUAL;
+SELECT ('LUIS''GERARDO ' || USER) AS "ENCABEZADO" FROM DUAL;
+
+SELECT FIRST_NAME || ' ' || LAST_NAME "NOMBRE",DEPARTMENT_ID,commission_pct
+FROM employees
+WHERE commission_pct!=.35;
+
+
+SELECT DEPARTMENT_NAME 
+FROM departments
+WHERE department_id=90;
+
+DESCRIBE job_history;
+
+SELECT *
+FROM job_history
+WHERE job_id='AC_ACCOUNT';
+
+SELECT * 
+FROM countries
+WHERE region_id=4;
+
+DESC REGIONS;
+
+SELECT REGION_NAME 
+FROM REGIONS
+WHERE REGION_ID=4;
+
+
+-- DIFERENTE <>, !=, ^=
+
+
+SELECT FIRST_NAME || ' ' || LAST_NAME "NOMBRE",department_id
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IN (10,20,50);
+
+SELECT FIRST_NAME || ' ' || LAST_NAME "NOMBRE",department_id
+FROM EMPLOYEES
+WHERE NOT( DEPARTMENT_ID >= 30);
+
+SELECT FIRST_NAME, SALARY
+FROM employees
+WHERE LAST_NAME = 'Smith' AND SALARY > 7500;
+
+SELECT FIRST_NAME as nombre , LAST_NAME as apellido ,salary as salario
+FROM employees
+WHERE FIRST_NAME = 'Kelly' OR LAST_NAME ='Smith' OR salary>=100;
+
+SELECT FIRST_NAME as nombre , LAST_NAME as apellido ,salary as salario
+FROM employees
+WHERE SALARY BETWEEN 5000 AND 6000;
+
+SELECT FIRST_NAME as nombre , LAST_NAME as apellido ,salary as salario
+FROM employees
+WHERE SALARY >=5000 AND salary <=6000;
+
+
+
+
+SELECT FIRST_NAME  || ' ' || LAST_NAME 
+as "nombre_completo"
+FROM employees
+WHERE first_name LIKE 'Su%';
+
+SELECT FIRST_NAME  || ' ' || LAST_NAME 
+as "nombre_completo"
+FROM employees
+WHERE first_name LIKE 'C%a';
+
+
+SELECT FIRST_NAME  || '' || LAST_NAME 
+as "nombre_completo"
+FROM employees
+WHERE department_id IS NOT NULL;
+
+
+SELECT * FROM countries
+ORDER BY region_id, country_name,country_id;
+
+
+
+SELECT COUNTRY_ID , COUNTRY_NAME , REGION_ID
+FROM regions
+WHERE region_id=1;
+
+
+SELECT FIRST_NAME  || ' ' || LAST_NAME 
+as "nombre_completo"
+FROM employees
+WHERE department_id =90
+ORDER BY last_name;
+
+SELECT FIRST_NAME  || ' ' || LAST_NAME 
+as "nombre_completo"
+FROM employees
+ORDER BY LAST_NAME DESC;
+
+SELECT LAST_NAME || ' ' || FIRST_NAME
+AS "NOMBRE COMPLETO"
+FROM employees
+ORDER BY last_name DESC, first_name ASC;
+
+
+SELECT FIRST_NAME ,HIRE_DATE ,SALARY ,MANAGER_ID AS MID
+FROM employees
+WHERE department_id IN (100,150)
+ORDER BY 4,2,3 ;
+
+
+SELECT LAST_NAME , commission_pct
+FROM employees
+WHERE LAST_NAME LIKE 'R%'
+ORDER BY commission_pct ASC, LAST_NAME DESC;
+
+
+fUNCIONES CONCAT CONCATENAR CADENAS Y FORMAS CADENAS
+
+SELECT 'LUIS'  ||  ' ROLDAN' 
+FROM DUAL;
+
+SELECT CONCAT ('LUIS GERARDO', ' NOVELO ROLDAN')
+FROM DUAL;
+
+SELECT CONCAT(CONCAT('UNO',' DOS'), ' TRES') AS CONCATENACION
+FROM DUAL;
+
+
+SELECT CONCAT (CONCAT(FIRST_NAME, ' '),LAST_NAME) EMPLOYEE_NAME,
+    FIRST_NAME || ' ' || LAST_NAME AS EMPLOYEE_NAME2
+    FROM employees
+    WHERE DEPARTMENT_ID = 30;
+
+FUNCION DE CADENA CON SUBSTRING
+SUBSTR(C1,X ,Y)
+
+SELECT SUBSTR ('CADENA MUY LARGA DE EJEMPLO',23)
+FROM DUAL;
+
+SELECT SUBSTR ('CADENA MUY LARGA DE EJEMPLO',1,1)
+FROM DUAL;
+
+SELECT SUBSTR (10000-8,3,2)FROM DUAL;
+
+SELECT  SYSDATE ,SUBSTR(SYSDATE , 4,3 ) FROM DUAL;
+
+SELECT SUBSTR('1#2#3#4#5#6' ,2,6)FROM DUAL;
+
+SELECT 'nOMBRE: ' || SUBSTR(FIRST_NAME,1,1) || '.' ||  LAST_NAME AS "NOMBRE"
+FROM EMPLOYEES
+WHERE SUBSTR(JOB_ID,1,2) = 'AD';
+
+--iNSTR(C1,C2)
+SELECT INSTR('HOLA MUNDO' , 'MU')FROM DUAL;
+SELECT INSTR('OTRA CADENA','NO EXISTE')
+FROM DUAL;
+
+SELECT SYSDATE, INSTR(SYSDATE,'20') FROM DUAL;
+
+SELECT INSTR('1#2#3#4#5#6','#',5 ) AS "SUBSTR" FROM DUAL;
+
+SELECT * FROM departments
+WHERE INSTR(department_name, 'on')=2;
+
+--Funcion length longitud de una cadena(c9
+
+SELECT LENGTH ('ESTA ES UNA CADENA')FROM DUAL;
+
+SELECT LENGTH ('1 + 2 = ' || 3)FROM DUAL;
+
+SELECT LENGTH(SYSDATE) FROM DUAL;
+SELECT SYSDATE FROM DUAL;
+
+
+SELECT  * 
+FROM countries
+WHERE   LENGTH(country_name) > 10;
+
+select *
+FROM countries;
+
+--FUNCION LOWER(CADENA)
+
+SELECT LOWER('hoLa MunDo') from dual;
+
+SELECT LOWER('hoLa MunDo') from dual;
+
+SELECT (30+50/2)FROM DUAL;
+
+
+SELECT FIRST_NAME,LAST_NAME,LOWER(LAST_NAME)
+FROM EMPLOYEES
+WHERE lower(LAST_NAME) LIKE '%ur%';
+
+funciones lpad(cadena,i) y rpad
+
+
+select LPAD ('UNA CADENA' ,15,'*'), RPAD ('UNA CADENA' , 15,'*') FROM DUAL;
+
+SELECT LPAD (LAST_NAME,10) AS "LPAD_NAME", LPAD(SALARY, 8, '*') LPAD_SALARY
+FROM EMPLOYEES
+WHERE LAST_NAME LIKE 'J%';
+
+
+--FUNCION REPLACE (C1,C2,[,C3])
+
+SELECT REPLACE ('DOWNTOWN' , 'DOWN', 'UP') FROM DUAL;
+
+SELECT REPLACE (10000-3,'9','85')FROM DUAL;
+
+SELECT REPLACE(SYSDATE,'03','10')FROM DUAL;
+
+SELECT SYSDATE FROM DUAL;
+
+SELECT LAST_NAME, SALARY, LENGTH(REPLACE(SALARY,'0','000')), REPLACE(salary,'0','000') AS SUELDAZO
+FROM EMPLOYEES
+WHERE JOB_ID='SA_MAN';
+
+--ABS(N)--ACOS--ASINCOS,SIN,TAN--CEIL ENTERO MAS PEQUEÑO MAYOR OIGUAL QUE N--EXP--FLOOR ENTERO MAS GRANDE QUE SEA MENOR O IGUAL QUE N
+--LNLOGARITMO--POWER(NI ELEVADO A LA POTENCIA N2)--SIGN(N)
+
+
+SELECT REPLACE(ABS(20),'0','000') FROM DUAL;
+
+SELECT SIN(1) FROM DUAL;
+
+SELECT CEIL(9.8)FROM DUAL;
+
+SELECT FLOOR(9.8),FLOOR(-32.85)FROM DUAL;
+
+SELECT SIGN(-10.1) FROM DUAL;
+
+--TO_CHAR(EXPRESION)
+
+SELECT TO_CHAR(100) FROM DUAL;
+SELECT TO_CHAR(00000001,'000000000000') FROM DUAL;
+
+SELECT JOB_TITLE,MAX_SALARY, TO_CHAR(MAX_SALARY, '$99,999.99'),
+TO_CHAR(MAX_SALARY, '$9,999.99')
+FROM JOBS
+WHERE UPPER(JOB_TITLE) LIKE '%PRESIDENT%';
+
+select upper('luis') from dual;
+
+SELECT TO_CHAR (sysdate) FROM DUAL;
+
+SELECT TO_CHAR(SYSDATE,'DAY')frOM DUAL;
+
+SELECT LAST_NAME, TO_CHAR(HIRE_DATE, 'FMdd MONTH YYYY') AS "FECHA DE CONTRATACION"
+FROM EMPLOYEES;
+
+SELECT TO_CHAR(SYSDATE,'DAY Ddspth, month yyyy','nls_date_language=english')
+frOM DUAL;
+
+--funcion to date convertir tipos de datos de caarcter en fechas
+
+to_date(c,x,y)
+
+ALTER SESSION SET  nls_date_format = 'DD-MON-RRRR HH24:MI:SS';
+SELECT SYSDATE FROM DUAL;
+
+SELECT TO_DATE('25-ABR-2010') FROM DUAL;
+
+SELECT TO_DATE (' 25-ABR', 'DD-MON') FROM DUAL;
+
+SELECT TO_DATE ('20-SEP-2007' , 'DD/MON/YYYY') FROM DUAL;
+SELECT SYSDATE FROM DUAL;
+
+SELECT TO_DATE('25');
+
+--FUNCIONES PARA DATOS NULOS NVL,NVL2,COALSCE
+--NVL(X1,X2)
+NVL2(X1,X2,X3)
+
+SELECT LAST_NAME , NVL(DEPARTMENT_ID,0)
+FROM EMPLOYEES
+ORDER BY 2;
+
+SELECT FIRST_NAME AS "NOMBRE" ,SALARY AS "SALARIO",  NVL(COMMISSION_PCT) AS "COMISION", 
+SALARY + (SALARY * NVL (COMMISSION_PCT,0)) AS "COMPENSACION"
+FROM EMPLOYEES
+ WHERE FIRST_NAME LIKE'T%' ORDER BY 2;
+
+SELECT FIRST_NAME AS "NOMBRE" ,SALARY AS "SALARIO", COMMISSION_PCT AS "COMISION", NVL2(COMMISSION_PCT,SALARY + SALARY * COMMISSION_PCT,SALARY) AS "COMPENSACION"
+FROM EMPLOYEES
+ WHERE FIRST_NAME LIKE'T%' ORDER BY 2;
+ 
+ --FUNCION COUNT(*,  EXPRESION)
+ 
+ SELECT COUNT (*) FROM EMPLOYEES;
+ 
+ SELECT COUNT (COMMISSION_PCT) FROM EMPLOYEES;
+ 
+ SELECT COMMISSION_PCT FROM EMPLOYEES;
+ 
+ SELECT COUNT (DISTINCT
+ COMMISSION_PCT) FROM EMPLOYEES;
+ 
+ SELECT COUNT (HIRE_DATE ), COUNT(MANAGER_ID) FROM EMPLOYEES;
+ 
+ SELECT  COUNT (*),
+ COUNT (DISTINCT NVL(DEPARTMENT_ID,0)),
+ COUNT (DISTINCT NVL(JOB_ID,0))
+ FROM EMPLOYEES;
+ 
+ SELECT COUNT (*) AS "PAISES CON A"
+ FROM COUNTRIES
+ WHERE COUNTRY_NAME LIKE 'A%';
+ 
+  SELECT COUNTRY_NAME AS "PAISES CON A"
+ FROM COUNTRIES
+ WHERE COUNTRY_NAME LIKE 'B%';
+
+--AVG(DISTINCT(ALL) EXPRESION)
+
+SELECT AVG(5) FROM EMPLOYEES;
+
+SELECT  FLOOR(AVG (SALARY)) FROM EMPLOYEES;
+
+SELECT TRUNC(AVG(DISTINCT SALARY),1)FROM EMPLOYEES;
+
+SELECT AVG(COMMISSION_PCT) FROM EMPLOYEES;
+
+SELECT LAST_NAME, JOB_ID, ROUND( (SYSDATE - HIRE_DATE) / 365.25,1) AS "aÑOS TRABAJADOS"
+FROM EMPLOYEES
+WHERE JOB_ID = 'IT_PROG';
+
+
+SELECT  ROUND(AVG( (SYSDATE - HIRE_DATE) / 365.25),2) AS "aÑOS TRABAJADOS"
+FROM EMPLOYEES
+WHERE JOB_ID = 'IT_PROG';
+
+SELECT ROUND(AVG(SALARY)), DEPARTMENT_ID
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID
+ORDER BY 1 DESC;
+
+SELECT COUNT(*) , MANAGER_ID
+FROM EMPLOYEES
+GROUP BY MANAGER_ID
+ORDER BY 1 DESC, 1 NULLS LAST;
+
+/*SECUENCIAS CREATE SEQUENCE
+INCREMET BY N
+START WITH N
+MAXVALUE N | NOMAXVALUE
+MINVALUE  N  | NOMINVALUE
+CYCLE | NOCYCLE
+CACCHE | NOCACHE
+*/
+CREATE SEQUENCE MI_SECUENCIA
+INCREMENT BY 10
+START WITH 120
+MAXVALUE 9999
+NOCACHE
+NOCYCLE;
+
+CREATE TABLE TEST(
+ID NUMBER PRIMARY KEY,
+COLL NUMBER
+);
+
+--NEXTVAL
+--CURRVAL
+
+INSERT INTO TEST VALUES(MI_SECUENCIA.nextval,200);
+
+SELECT * FROM TEST;
+
+SELECT MI_SECUENCIA.nextval FROM DUAL;
+
+
+
+create sequence PRUEBA
+start with 1
+increment by 1
+minvalue 1
+maxvalue 100
+nocache
+nocycle;
+
+ CREATE TABLE BC (CAMPO_A NUMBER(3),CAMPO_B NUMBER(2));
+
+CREATE SEQUENCE UNOS
+    INCREMENT BY 1
+    START WITH 1
+    MAXVALUE 100
+    MINVALUE 1
+    NOCACHE 
+    NOCYCLE;
+   
+INSERT INTO  BC VALUES(UNOS.NEXTVAL,UNOS.nextval);
+
+SELECT * FROM BC;
+
+DROP SEQUENCE UNOS;
+
+
+
+
+
+
+
+
+Select trunc(&&entradaaaaaaa/500,0) as "500"
+,trunc (mod(&entradaaaaaa,500)/100,0) as "100"
+from dual;
+
+select trunc(&&numerOooo/20)
+from dual;
+
+
+
+
+
+SELECT TABLE_NAME FROM USER_TABLES;
+DESCRIBE EMPLOYEES;
+
+
+
+
+SELECT * from employees;
+
+
+
+create or replace view empleados_depts as 
+select first_name || ' '|| last_name as nombre , department_name, city, country_name
+from employees natural join departments natural join locations natural join countries;
+drop view empleados_depts;
+select * from empleados_depts
+where department_name LIKE 'F%';
+
+
+select count (*) ,department_name from empleados_depts 
+group by department_name;
+
+
+select first_name, hire_date
+from employees
+where to_char(hire_date, 'YYYY') in (2002,  2005)
+order by hire_date;
+
+select first_name , hire_date
+from employees
+where job_id = 'IT_PROG' OR JOB_ID ='SA_MAN';
+
+select first_name , hire_date
+from employees
+where job_id = 'SA_MAN';
+
+SELECT * FROM EMPLOYEES
+WHERE HIRE_DATE >'01/ENE/08';
+
+SELECT * FROM EMPLOYEES
+WHERE EMPLOYEE_ID = 150 OR EMPLOYEE_ID =160;
+SELECT EMPLOYEE_ID IN (150,160);
+
+SELECT FIRST_NAME , SALARY, NVL(COMMISSION_PCT,0), HIRE_DATE 
+FROM EMPLOYEES
+WHERE SALARY < 10000 ;
+
+SELECT JOB_TITLE , MAX_SALARY - MIN_SALARY
+FROM JOBS
+WHERE MAX_SALARY BETWEEN 10000 AND 20000;
+
+SELECT FIRST_NAME,SALARY ,ROUND (SALARY,-3)
+FROM EMPLOYEES;
+
+SELECT * 
+FROM JOBS
+ORDER BY JOB_TITLE;
+
+SELECT FIRST_NAME | | '  ' | | LAST_NAME  AS "NOMBRE"
+FROM EMPLOYEES
+WHERE FIRST_NAME LIKE 'S%' OR  LAST_NAME LIKE 'S%';
+
+
+SELECT * 
+FROM EMPLOYEES
+WHERE TO_CHAR(HIRE_DATE,'MON')= 'MAY';
+
+
+SELECT *  FROM employees
+WHERE COMMISSION_PCT IS  NULL AND SALARY IN (5000,10000) AND department_id=30;
+
+SELECT FIRST_NAME, HIRE_DATE , LAST_DAY(HIRE_DATE)+1
+FROM EMPLOYEES;
+
+SELECT FIRST_NAME,HIRE_DATE, FLOOR((SYSDATE - HIRE_DATE )/ 365.25  )AS "EXPERIENCIA" 
+FROM EMPLOYEES;
+
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE TO_CHAR(HIRE_DATE,'YYYY')= '2001';
+
+SELECT FIRST_NAME  , INITCAP (LAST_NAME)  
+FROM EMPLOYEES;
+
+SELECT job_title,  SUBSTR (job_title,1,instr(job_title, ' ' )-1) as "primera palabara"
+FROM jobs;
+
+select first_name, last_name 
+from employees
+where instr(last_name, 'b') > 3;
+
+select first_name, last_name , upper(first_name), lower (last_name)
+from employees
+where substr(first_name,1,1) != substr(last_name,1,1);
+
+SELECT * FROM EMPLOYEES
+WHERE TO_CHAR(HIRE_DATE, 'YYYY') = '2008';-- TO_CHAR(SYSDATE, 'YYYY');
+
+
+SELECT SYSDATE , FLOOR(SYSDATE-TO_DATE('01/ENE/2011')) FROM DUAL;
+
+SELECT TO_CHAR(HIRE_DATE, 'MM' ) ,COUNT(*)
+FROM EMPLOYEES
+WHERE TO_CHAR(HIRE_DATE,'YYYY')=  '2008'--TO_CHAR (SYSDATE, 'YYYY')
+GROUP BY TO_CHAR(HIRE_DATE, 'MM')
+order by 1 asc;
+
+select manager_id, count(*)
+from employees
+group by manager_id;
+
+
+select employee_id, max(end_date)
+from job_history
+group by employee_id;
+
+
+select count(*)
+from employees
+where to_char(hire_date,'dd')>15;
+
+select country_id,count(*)
+from locations
+group by country_id;
+
+select department_id, round(AVG(salary))
+from employees
+where commission_pct is not null
+group by department_id;
+
+
+select job_id, count(*), sum(salary), max(salary)- min (salary) as "salario"
+from employees
+GROUP BY JOB_ID;
+
+SELECT JOB_ID, AVG (SALARY)
+FROM EMPLOYEES
+GROUP BY JOB_ID
+HAVING AVG(SALARY) >10000;
+
+
+
+
+
+
+
+--sum ([Distinct|all] expr)
+
+select sum (salary) from employees;
+
+select sum(5) from employees;
+
+select 5 * count (*) from employees;
+
+select sum(distinct salary) from employees;
+
+select sum (DISTINCT commission_pct) from employees;
+
+select round(sum(sysdate - hire_date) /365.25,2)
+from employees;
+
+-- -- min,max(distinct|all expresion)
+
+select min(commission_pct) , max (commission_pct) from employees;
+
+select min  (start_date) , max (end_date) from job_history;
+
+select min (job_id) , max (job_id) from employees;
+
+select min(hire_date), min (salary) , max (hire_date),max(salary)
+from employees
+where job_id = 'SA_REP';
+
+select  ROUND(AVG(LENGTH(country_name))) AS "PROMEDIO DE NOMBRE"
+from countries;
+
+--GROUP BY 
+
+SELECT ROUND(AVG(SALARY)), DEPARTMENT_ID
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID 
+ORDER BY 1 DESC;
+
+SELECT COUNT(*), MANAGER_ID 
+FROM EMPLOYEES
+GROUP BY MANAGER_ID
+ORDER BY 1 DESC , 2  NULLS LAST;
+
+SELECT MAX(SALARY), COUNT(*), DEPARTMENT_ID
+FROM EMPLOYEES
+GROUP BY DEPARTMENT_ID
+ORDER BY DEPARTMENT_ID;
+
+
+SELECT COUNT(*) , REGION_ID 
+FROM COUNTRIES
+GROUP BY REGION_ID
+ORDER BY REGION_ID ;
+
+SELECT TO_CHAR(END_DATE, 'YYYY') AS "AÑO", COUNT(*) AS "EMPLEADOS"
+FROM JOB_HISTORY
+GROUP BY TO_CHAR(END_DATE , 'YYYY')
+ORDER BY COUNT(*) DESC;
+
+
+SELECT END_DATE, COUNT(*)
+FROM JOB_HISTORY
+GROUP BY END_DATE;
+
+SELECT DEPARTMENT_ID ,SUM(COMMISSION_PCT)
+FROM EMPLOYEES
+WHERE COMMISSION_PCT IS NOT NULL
+GROUP BY DEPARTMENT_ID;
+
+SELECT DEPARTMENT_ID ,JOB_ID,SUM(COMMISSION_PCT)
+FROM EMPLOYEES
+WHERE COMMISSION_PCT IS NOT NULL
+GROUP BY DEPARTMENT_ID, JOB_ID;
+
+SELECT TO_CHAR(END_DATE, 'YYYY'), JOB_ID, COUNT(*)
+FROM JOB_HISTORY
+GROUP BY TO_CHAR(END_DATE, 'YYYY'), JOB_ID
+ORDER BY 1, COUNT(*) DESC;
+
+
+SELECT MAX(LENGTH(LAST_NAME)) , MIN(LENGTH(LAST_NAME))
+FROM EMPLOYEES
+WHERE JOB_ID = 'SA_REP';
+
+--having filtrar resultados basados en grupos 
+
+select department_id
+from job_history
+where department_id in (50,60,80,110);
+
+select department_id, count(*) 
+from job_history
+where department_id in (50,60,80,110) 
+group by department_id
+having count(*) >1;
+
+
+select job_id, avg (salary), count(*)
+from employees
+group by job_id
+having avg(salary) >10000
+order by 2 desc;
+
+
+select job_id, avg (salary), count(*)
+from employees
+group by job_id
+having avg(salary) >10000 and count(*) >1
+order by 2 desc;
+
+
+select to_char(hire_date,'day' ), count(*) 
+from employees
+group by  to_char(hire_date,'day' )
+having count(*)>=15
+order by 2 asc;
+
+
+--joins
+--region de canada
+select region_name
+from regions natural join countries
+where country_name = 'Canada';
+
+desc regions;
+desc countries;
+
+
+select country_name
+from countries natural join regions
+where region_name= 'Americas';
+
+select region_name from regions join countries
+using(region_id)
+where country_name = 'Canada';
+
+select country_name 
+from countries join regions
+on (countries.region_id = regions.region_id)
+where region_name = 'Americas';
+
+select count(*) from countries;
+select count(*) from regions;
+
+select * from regions cross join countries;
+
+select count(*) from regions cross join countries;
+
+
+
+--joins
+
+select street_address,city,country_name from locations
+natural join countries;
+
+select l.street_address,l.city,c.country_name
+from locations l , countries c
+where l.country_id = c.country_id;
+
+select * from jobs natural join countries;
+
+select employee_id , job_id , department_id , e.last_name , e.hire_date, jh.end_date
+from job_history jh natural join employees e ;
+
+
+
+--departments, locations, countries, region 
+select d.department_name, l.city, c.country_name,r.region_name
+from departments d 
+natural join locations l
+natural join countries c
+natural join regions r;
+
+select d.department_name, l.city, c.country_name,r.region_name
+from departments d
+join locations l on (d.location_id = l.location_id)
+join countries c on (l.country_id = c.country_id)
+join regions r on (c.region_id = r.region_id);
+
+select d.department_name, l.city, c.country_name,r.region_name
+from departments d
+join locations l using (location_id)
+join countries c using (country_id)
+join regions r using (region_id);
+
+select d.department_id , l.city, d.department_name
+from departments d 
+join locations l  on l.location_id  = d.location_id and  d.department_name  like 'S%';
+
+
